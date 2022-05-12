@@ -34,7 +34,7 @@ for (let i = 0; i < 5; i++) {
 
     let span = document.createElement("span");
     span.classList.add("ru");
-    span.classList.add("on");
+    span.classList.add("ru");
     key.append(span);
     span.innerHTML = keysRu[i][j];
 
@@ -83,7 +83,7 @@ document.addEventListener("keydown", function (event) {
             pressedKey.classList.contains("ShiftRight")
           )
         ) {
-          textarea.value += pressedKey.querySelector(".on").innerHTML;
+          textarea.value += pressedKey.querySelector(".ru").innerHTML;
           return;
         }
       }
@@ -104,7 +104,7 @@ document.addEventListener("keydown", function (event) {
       pressedKey.classList.contains("ShiftRight")
     )
   ) {
-    textarea.value += pressedKey.querySelector(".on").innerHTML.toLowerCase();
+    textarea.value += pressedKey.querySelector(".ru").innerHTML.toLowerCase();
   }
 
   if (pressedKey.classList.contains("Backspace")) {
@@ -126,24 +126,23 @@ document.addEventListener("keydown", function (event) {
     }
 
     if (changeLang === 2) {
-      let on = document.querySelectorAll(".on");
+      let ru = document.querySelectorAll(".ru");
       let off = document.querySelectorAll(".off");
 
-      on.forEach((element) => {
-        element.classList.remove("on");
+      ru.forEach((element) => {
+        element.classList.remove("ru");
         element.classList.add("off");
       });
 
       off.forEach((element) => {
         element.classList.remove("off");
-        element.classList.add("on");
+        element.classList.add("ru");
       });
     }
   }
 });
 
-localStorage.setItem('language', 'on');
-console.log(localStorage.getItem('language'));
+
     
 
 
@@ -168,6 +167,14 @@ document.addEventListener("mousedown", function (event) {
   if (addClass.contains("key")) {
     addClass.add("pressed-mouse");
 
+    if ( addClass.contains("Backspace")) {
+        let data = textarea.value;
+        textarea.value = "";
+        for (let i = 0; i < data.length - 1; i++) {
+          textarea.value += data[i];
+        }
+      }
+
     if (
       !(
         addClass.contains("ControlLeft") ||
@@ -187,7 +194,7 @@ document.addEventListener("mousedown", function (event) {
       textarea.value += event.target.firstChild.innerHTML.toLowerCase();
     }
   } else {
-    if (addClass.contains("on")) {
+    if (addClass.contains("ru")) {
       if (event.target.closest("div").classList.contains("CapsLock")) {
         event.target.closest("div").classList.toggle("pressed-mouse");
       } else {
@@ -211,6 +218,8 @@ document.addEventListener("mousedown", function (event) {
         ) {
           textarea.value += event.target.innerHTML.toLowerCase();
         }
+        
+        
       }
     }
   }
@@ -218,7 +227,7 @@ document.addEventListener("mousedown", function (event) {
 
 document.addEventListener("mouseup", function (event) {
   if (!event.target.classList.contains("CapsLock")) {
-    if (event.target.classList.contains("on")) {
+    if (event.target.classList.contains("ru")) {
       event.target.closest("div").classList.remove("pressed-mouse");
     } else {
       event.target.classList.remove("pressed-mouse");
